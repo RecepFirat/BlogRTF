@@ -11,6 +11,7 @@ namespace RTFBLOG.Controllers
 {
     public class UyeController : Controller
     {
+
         yeniBlogDbEntities db = new yeniBlogDbEntities();
         // GET: Uye 
         public ActionResult Index( int id)
