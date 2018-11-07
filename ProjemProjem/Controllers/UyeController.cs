@@ -78,7 +78,7 @@ namespace RTFBLOG.Controllers
             {
                 if (uye.Sifre==sifre)
                 {
-
+                   //todo
                 if (foto != null)
                 {
                     WebImage img = new WebImage(foto.InputStream);
