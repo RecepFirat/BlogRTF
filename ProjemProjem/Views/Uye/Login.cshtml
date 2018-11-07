@@ -1,0 +1,107 @@
+﻿@model RTFBLOG.Models.Uye
+
+@{
+    ViewBag.Title = "Login";
+    Layout = null;
+}
+
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>RTF BLOG ADMİN VE ÜYE GİRİS</title>
+    <!-- Bootstrap core CSS-->
+    <link href="~/Content/Kaynak/adminPaneli/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom fonts for this template-->
+    <link href="~/Content/Kaynak/adminPaneli/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <!-- Custom styles for this template-->
+    <link href="~/Content/Kaynak/adminPaneli/css/sb-admin.css" rel="stylesheet">
+</head>
+<body class="bg-dark">
+    <div class="container">
+        @if (ViewBag.data != null)
+        {
+            <h4 style="color:seagreen">  @ViewBag.data</h4>
+        }
+
+        <div class="card card-login mx-auto mt-5">
+            <div class="card-header">Login</div>
+            <div class="card-body">
+                <form method="post">
+                    <div class="form-group">
+                        <label>Email address</label>
+                        <input class="form-control" name="email" type="email" aria-describedby="emailHelp" placeholder="Kullanıcı email gir">
+                    </div>
+                    <div class="form-group">
+                        <label>Kullanıcı Adı</label>
+                        <input class="form-control" name="KullaniciAdi" type="text" placeholder="Kullanıcı Adı Gir">
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input class="form-control" name="Sifre" type="password" placeholder="Sifre Gir">
+                    </div>
+                    @*<div class="form-group">
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input class="form-check-input" type="checkbox"> Remember Password
+                            </label>
+                        </div>
+                    </div>*@
+                    <input type="submit" value="Giris Yap" class="btn btn-primary btn-block" href="/Uye/Login" />
+                </form>
+                <div class="text-center">
+                    <a class="d-block small mt-3" href="register.html">Register an Account</a>
+                    <a class="d-block small" href="forgot-password.html">Forgot Password?</a>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+    <!-- Bootstrap core JavaScript-->
+    <script src="~/Content/Kaynak/adminPanelivendor/jquery/jquery.min.js"></script>
+    <script src="~/Content/Kaynak/adminPanelivendor/popper/popper.min.js"></script>
+    <script src="~/Content/Kaynak/adminPanelivendor/bootstrap/js/bootstrap.min.js"></script>
+    <!-- Core plugin JavaScript-->
+    <script src="~/Content/Kaynak/adminPanelivendor/jquery-easing/jquery.easing.min.js"></script>
+
+   
+
+</body>
+
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

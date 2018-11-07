@@ -1,0 +1,33 @@
+﻿
+
+@model IEnumerable<RTFBLOG.Models.Kategori>
+@{
+
+    Layout = null;
+}
+    <div class="col-lg-12">
+        <ul class="list-unstyled mb-0">
+           
+            @foreach (var item in Model)
+            {
+               
+                <li>
+                    <a href="/Home/KategoriMakale/@item.KategoriId">@item.KategoriAdi (@item.Makale.Count)</a>
+                </li>
+
+            }
+        </ul>
+    </div>
+    @*<div class="col-lg-6">
+            <ul class="list-unstyled mb-0">
+                <li>
+                    <a href="#">JavaScript</a>
+                </li>
+                <li>
+                    <a href="#">CSS</a>
+                </li>
+                <li>
+                    <a href="#">Tutorials</a>
+                </li>
+            </ul>
+        </div>*@

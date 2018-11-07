@@ -1,0 +1,220 @@
+﻿@model RTFBLOG.Models.Makale
+
+@{
+    ViewBag.Title = "MakaleDetay";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@*16.videodasun*@
+
+
+
+
+
+@section script
+    {
+    <style>
+        .tag {
+            background-color: beige;
+        }
+
+        .Yazi {
+            word-wrap: break-word;
+        }
+
+        .body {
+            padding-top: 54px;
+        }
+    </style>
+
+}
+
+<!-- Title -->
+<h1 class="mt-4">@Model.Baslik</h1>
+<!-- Author -->
+<p class="lead">
+    <img class="img-circle img-responsive" src="@Model.Uye.Foto" alt="@Model.Uye.AdSoyad" />
+    <a href="/Uye/Index/@Model.UyeId">@Model.Uye.AdSoyad </a>
+</p>
+<hr>
+<!-- Date/Time -->
+<p><span class="glyphicon glyphicon-time"></span> @string.Format("{0: MMMM yyyy}", Model.Tarih) <span class="glyphicon glyphicon-edit"></span>&nbsp;@Model.Kategori.KategoriAdi   (@Model.Kategori.Makale.Count())<span class="glyphicon glyphicon-send"> (@Model.Yorum.Count())</span></p>
+<hr>
+<!-- Preview Image -->
+<img class="img-fluid rounded" height="900" width="300" src="@Model.Foto" alt="@Model.Baslik"> @*900 300*@
+<hr>
+<!-- Post Content -->
+<p class="lead Yazi">
+    @Model.Icerik
+</p>
+<hr />
+@*<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut, tenetur natus doloremque laborum quos iste ipsum rerum obcaecati impedit odit illo dolorum ab tempora nihil dicta earum fugiat. Temporibus, voluptatibus.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos, doloribus, dolorem iusto blanditiis unde eius illum consequuntur neque dicta incidunt ullam ea hic porro optio ratione repellat perspiciatis. Enim, iure!</p>*@
+<blockquote class="blockquote">
+    <p class="mb-0"></p>
+    <footer class="blockquote-footer">
+        Someone famous in
+        <cite title="Source Title">
+            naber
+            @foreach (var item in Model.Etiket)
+            {
+                <span class="tag">@item.EtiketAdi </span>
+            }
+
+        </cite>
+    </footer>
+
+
+
+    <hr>
+    @if (Session["uyeid"] != null)
+    {
+        <div class="card my-4">
+            <h5 class="card-header">Yorum</h5>
+            <div class="card-body">
+                <form>
+                    <div class="form-group">
+                        <textarea id="yorumunuz" typeof="text" class="form-control" rows="3"></textarea>
+                    </div>
+                    <button type="submit" id="gonder" class="btn btn-primary">Yorum Yap</button>
+                </form>
+            </div>
+        </div>
+    }
+    else
+    {
+        <h2>   Makaleye Yorum Yapmak için kullanici girişi yapmalısınız </h2>
+        <p><a class="btn btn-danger" href="/Uye/Login/">Giriş Yap </a></p>
+    }
+
+    @foreach (var item in Model.Yorum.ToList())
+    {
+
+
+        <div class="media mb-4">
+            <img class="d-flex mr-3 rounded-circle" src="@item.Uye.Foto" alt="@item.Uye.AdSoyad">
+            <div class="media-body">
+                <h5 class="mt-0">@item.Uye.KullaniciAdi  @item.Tarih</h5>
+                @item.Icerik-@if (Convert.ToInt32(Session["uyeid"]) == item.UyeId)
+                {
+                    <a class="btn btn-danger" href="/Home/YorumSil/@item.YorumId">Sil</a>
+                }
+
+            </div>
+        </div>
+    }
+</blockquote>
+@*<p> </p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Harum, dolor quis. Sunt, ut, explicabo, aliquam tenetur ratione tempore quidem voluptates cupiditate voluptas illo saepe quaerat numquam recusandae? Qui, necessitatibus, est!</p>
+    <hr>*@
+<script src="~/Content/Kaynak/anasayfasi/vendor/jquery/jquery.min.js"></script>
+<script src="~/Content/Kaynak/anasayfasi/vendor/popper/popper.min.js"></script>
+<script src="~/Content/Kaynak/anasayfasi/vendor/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#gonder").click(function () {
+            var yorumunuz = $("#yorumunuz").val();
+        $.ajax({
+            url: '/Home/YorumYap/',
+            data: { yorum: yorumunuz, Makaleid:@Model.MakaleId},
+            type: 'POST',
+            dataType: 'json',
+            success: function (data) {
+                alert("Yorum Gönderildi.Basarılı  " + yorumunuz);
+
+            }
+
+
+        });
+
+        });
+
+    });
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $.ajax({
+            url: '/Home/OkunmaArttir/',
+
+            data: { Makaleid:@Model.MakaleId },
+            type: 'POST',
+        });
+
+     
+
+    });
+
+
+</script>
+
+
+
+@*<h2>MakaleDetay</h2>
+
+    <div>
+        <h4>Makale</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Baslik)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Baslik)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Icerik)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Icerik)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Foto)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Foto)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Tarih)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Tarih)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Okunma)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Okunma)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Kategori.KategoriAdi)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Kategori.KategoriAdi)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Uye.KullaniciAdi)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Uye.KullaniciAdi)
+            </dd>
+
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.MakaleId }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>*@

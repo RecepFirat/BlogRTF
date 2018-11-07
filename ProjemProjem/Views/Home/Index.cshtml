@@ -1,0 +1,89 @@
+﻿
+@using PagedList
+@using PagedList.Mvc
+@model IPagedList<RTFBLOG.Models.Makale>
+
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<br />
+<h2>Anasayfa</h2>
+
+<!-- Blog Entries Column -->
+@*
+    <h1 class="my-4">
+        Page Heading
+        <small>Secondary Text</small>
+    </h1>
+*@
+
+@*15.videodasın*@
+
+
+
+@if (Model != null)
+{
+
+
+
+    foreach (var item in Model)
+    {
+        try
+        {
+            <div class="card mb-4">
+                <img class="card-img-top" src="@item.Foto" alt="Card image cap">@*buraya slider ekleyebilirsin*@
+                <div class="card-body">
+                    <a class="card-title" href="/Home/MakaleDetay/@item.MakaleId">@item.Baslik</a>
+
+
+
+                    @if (item.Icerik.Length > 150)
+                    {
+                        <p class="card-text">
+                            @Html.Raw(item.Icerik.Substring(0, 150)) ....
+                        </p>
+                    }
+                    else
+                    {
+                        <p class="card-text">
+                            @Html.Raw(item.Icerik) ....
+                        </p>
+                    }
+
+
+                    <a href="/Home/MakaleDetay/@item.MakaleId" class="btn btn-primary">Devamını Oku &rarr;</a>
+                </div>
+                <div class="card-footer text-muted">
+
+
+                    <img class="img-circle img-responsive" width="75" src="@item.Uye.Foto" alt="@item.Uye.AdSoyad" />
+
+
+                    <a href="/Uye/UyeProfil/@item.Uye.UyeId">@item.Uye.KullaniciAdi</a>
+
+                    <span class="glyphicon glyphicon-time"></span>@string.Format("{0: MMMM yyyy}", item.Tarih)
+                    &nbsp; &nbsp;
+                    <span class="glyphicon glyphicon-tags"></span>@item.Etiket.Count() etikete sahip
+
+                </div>
+            </div>
+
+        }
+        catch 
+        {
+
+
+        }
+
+
+    }
+}
+<div class="row">
+    <div class="col-md-8 text-center">
+        <div class="pagedList pagination">
+            @Html.PagedListPager(Model, Page => Url.Action("Index", new { Page }), PagedListRenderOptions.Classic)
+        </div>
+    </div>
+</div>
