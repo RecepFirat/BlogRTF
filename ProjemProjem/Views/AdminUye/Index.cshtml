@@ -30,7 +30,7 @@
         <th>
             @Html.DisplayNameFor(model => model.Yetki.Yetki1)
         </th>
-        <th></th>
+        <th>@Html.DisplayNameFor(model=>model.Aktif)</th>
     </tr>
 
 @foreach (var item in Model) {
@@ -54,9 +54,12 @@
             @Html.DisplayFor(modelItem => item.Yetki.Yetki1)
         </td>
         <td>
-            @Html.ActionLink("Düzenle", "Edit", new { id=item.UyeId }) |
-            @Html.ActionLink("Detay", "Details", new { id=item.UyeId }) |
-            @Html.ActionLink("Sil", "Delete", new { id=item.UyeId })
+            @Html.DisplayFor(modelItem => item.Aktif)
+        </td>
+        <td>
+            @Html.ActionLink("Düzenle", "Edit", new { id = item.UyeId }) |
+            @Html.ActionLink("Detay", "Details", new { id = item.UyeId }) |
+            @Html.ActionLink("Sil", "Delete", new { id = item.UyeId })
         </td>
     </tr>
 }

@@ -1,0 +1,63 @@
+﻿@model RTFBLOG.Models.FormModel
+@{
+    ViewBag.Title = "MailGonderme";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<h2>İletişim</h2>
+<br />
+<div class="container">
+    @using (Html.BeginForm("MailGonderme", "OtomatikMail", FormMethod.Post, new { @class = "well" }))
+     {
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+         <fieldset>
+             <legend>Bizden İsteğiniz </legend>
+             <div class="form-group">
+                 <label class="col-md-4 control-label">
+                     Adı Soyadı
+                 </label>
+                 <div class="input-group">
+                     <span class="input-group-addon"> <i class="glyphicon glyphicon-user"></i></span>  &nbsp;
+                     @Html.TextBoxFor(model => model.AdiSoyadi, new { @class = "form-control", placeholder = "Adınız Soyadınız...." })
+                 </div>
+                 @Html.ValidationMessageFor(model => model.AdiSoyadi, "", new { @class = "text-danger" })
+             </div>
+        
+             <div class="form-group">
+                 <label class="col-md-4 control-label">
+                     Email Adresi
+                 </label>
+                 <div class="input-group">
+                     <span class="input-group-addon"> <i class="glyphicon glyphicon-envelope"></i></span>  &nbsp;
+                     @Html.TextBoxFor(model => model.Email, new { @class = "form-control", placeholder = "Email Adresininizi giriniz...." })
+                 </div>
+                 @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+             </div>
+        
+             <div class="form-group">
+                 <label class="col-md-4 control-label">
+                     Mesajınız
+                 </label>
+                 <div class="input-group">
+                     <span class="input-group-addon"> <i class="glyphicon glyphicon-pencil"></i></span>  &nbsp;
+                     @Html.TextAreaFor(model => model.Mesaj, new { @class = "form-control", placeholder = "mesajınızı giriniz....", rows = "8" })
+                 </div>
+                 @Html.ValidationMessageFor(model => model.Mesaj, "", new { @class = "text-danger" })
+             </div>
+        
+             @if (TempData["Basarili"] != null)
+             {
+                 <div class="alert alert-success" role="alert">Gönderildi <i class="glyphicon glyphicon-thumbs-up"> @TempData["Basarili"]</i> </div>
+             }
+             <div class="form-group">
+                 <label class="col-md-4 control-label">
+                 </label>
+                 <div class="col-md-4">
+                     <button type="submit" class="btn btn-warning">Gönder<span class="glyphicon glyphicon-send"> </span></button>
+                 </div>
+             </div>
+         </fieldset>
+     }
+</div>
+

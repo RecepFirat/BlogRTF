@@ -12,7 +12,7 @@ namespace RTFBLOG.Controllers
     public class UyeController : Controller
     {
 
-        yeniBlogDbEntities db = new yeniBlogDbEntities();
+        u8417622_dbblgEntities db = new u8417622_dbblgEntities();
         // GET: Uye 
         public ActionResult Index( int id)
         {
@@ -38,7 +38,7 @@ namespace RTFBLOG.Controllers
             if (KullaniciAdi!=null && Sifre !=null && email !=null)
             {
                 var login = db.Uye.Where(u => u.KullaniciAdi == KullaniciAdi).SingleOrDefault();
-                if (login.KullaniciAdi == KullaniciAdi && login.Email == email && login.Sifre == Sifre)
+                if (login.KullaniciAdi.ToString() == KullaniciAdi.ToString() && login.Email.ToString() == email.ToString() && login.Sifre.ToString() == Sifre.ToString())
                 {
                     Session["uyeid"] = login.UyeId;
                     Session["kullaniciadi"] = login.KullaniciAdi;
@@ -74,6 +74,102 @@ namespace RTFBLOG.Controllers
         [HttpPost]
         public ActionResult Create(Uye uye, HttpPostedFileBase foto,string sifre)//foto yazdıgım kısmı idsi foto olucak
         {
+//            @model RTFBLOG.Models.Uye
+
+//@{
+//                ViewBag.Title = "Create";
+//                Layout = "~/Views/Shared/_Layout.cshtml";
+//            }
+//< p class="alert">
+//    @if(ViewBag.data != null)
+//        {
+//            @ViewBag.data
+//    }
+
+//</p>
+//<h2>Yeni Üye Kayıt</h2>
+//@*video 11 uye kayıt ıslemleri*@
+//@using(Html.BeginForm("Create", "Uye", FormMethod.Post, new { enctype = "multipart/form-data" }))
+//{
+//    @Html.AntiForgeryToken()
+
+//    <div class="form-horizontal">
+
+//        <hr />
+//        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+//        <div class="form-group">
+//            @Html.LabelFor(model => model.KullaniciAdi, htmlAttributes: new { @class = "control-label col-md-2" })
+//            <div class="col-md-10">
+//                @Html.EditorFor(model => model.KullaniciAdi, new { htmlAttributes = new { @class = "form-control" } })
+//                @Html.ValidationMessageFor(model => model.KullaniciAdi, "", new { @class = "text-danger" })
+//            </div>
+//        </div>
+
+//        <div class="form-group">
+//            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+//            <div class="col-md-10">
+//                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @type = "email" } })
+//                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+//            </div>
+//        </div>
+
+//        <div class="form-group">
+//            @Html.LabelFor(model => model.Sifre, htmlAttributes: new { @class = "control-label col-md-2" })
+//            <div class="col-md-10">
+//                @Html.EditorFor(model => model.Sifre, new { htmlAttributes = new { @class = "form-control", @type = "password" } })
+//                @Html.ValidationMessageFor(model => model.Sifre, "", new { @class = "text-danger" })
+//            </div>
+//        </div>
+//        <div class="form-group">
+//            @Html.LabelFor(model => model.Sifre, htmlAttributes: new { @class = "control-label col-md-2" })
+//            <div class="col-md-10">
+//                <input type = "password" class="form-control" name="sifre" />
+//            </div>
+//        </div>
+
+//        <div class="form-group">
+//            @Html.LabelFor(model => model.AdSoyad, htmlAttributes: new { @class = "control-label col-md-2" })
+//            <div class="col-md-10">
+//                @Html.EditorFor(model => model.AdSoyad, new { htmlAttributes = new { @class = "form-control" } })
+//                @Html.ValidationMessageFor(model => model.AdSoyad, "", new { @class = "text-danger" })
+//            </div>
+//        </div>
+
+//        <div class="form-group">
+//            @Html.LabelFor(model => model.Foto, htmlAttributes: new { @class = "control-label col-md-2" })
+//            <div class="col-md-10">
+//                @* @Html.EditorFor(model => model.Foto, new { htmlAttributes = new { @class = "form-control" } })*@
+//                <input type = "file" name="Foto" id="Foto" accept=".jpgi.png,.gif,.JPEG,.jpeg" class="form-control" value="" />
+//                @Html.ValidationMessageFor(model => model.Foto, "", new { @class = "text-danger" })
+//            </div>
+//        </div>
+//        @*<div class="form-group">
+//                @Html.LabelFor(model => model.Foto, htmlAttributes: new { @class = "control-label col-md-2" })
+//                <div class="col-md-10">
+//                    @Html.EditorFor(model => model.Foto, new { htmlAttributes = new { @class = "form-control" } })
+//                    @Html.ValidationMessageFor(model => model.Foto, "", new { @class = "text-danger" })
+//                </div>
+//            </div>*@
+
+//        @*<div class="form-group">
+//                @Html.LabelFor(model => model.YetkiId, "YetkiId", htmlAttributes: new { @class = "control-label col-md-2" })
+//                <div class="col-md-10">
+//                    @Html.DropDownList("YetkiId", null, htmlAttributes: new { @class = "form-control" })
+//                    @Html.ValidationMessageFor(model => model.YetkiId, "", new { @class = "text-danger" })
+//                </div>
+//            </div>*@
+
+//        <div class="form-group">
+//            <div class="col-md-offset-2 col-md-10">
+//                <input type = "submit" value="Üye ol" class="btn btn-default" />
+//            </div>
+//        </div>
+//    </div>
+//}
+
+
+
+
             if (ModelState.IsValid)
             {
                 if (uye.Sifre==sifre)
@@ -89,7 +185,7 @@ namespace RTFBLOG.Controllers
                     img.Resize(150, 150);
                     img.Save("~/Uploads/UyeFoto/" + newfoto);
                     uye.Foto = "/Uploads/UyeFoto/" + newfoto.ToString();
-
+                    uye.Aktif = false;
                     uye.YetkiId = 2;
                     db.Uye.Add(uye);
                     db.SaveChanges();
@@ -97,7 +193,7 @@ namespace RTFBLOG.Controllers
                     Session["uyeid"] = uye.UyeId;
                     Session["kullaniciadi"] = uye.KullaniciAdi;
 
-                    ViewBag.data = "üye kaydınızın talebi alınmıstır";
+                    ViewBag.data = "üye kaydınızın talebi alınmıstır hesabınız aktiflestiğinde bilgilendirileceksiniz";
                     return View();
 
                 }

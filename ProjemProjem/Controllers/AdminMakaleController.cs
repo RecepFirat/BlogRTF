@@ -12,7 +12,7 @@ namespace RTFBLOG.Controllers
 {
     public class AdminMakaleController : Controller
     {
-        yeniBlogDbEntities db = new yeniBlogDbEntities();
+        u8417622_dbblgEntities db = new u8417622_dbblgEntities();
         // GET: AdminMakale
         public ActionResult Index(int Page=1)
         {
@@ -90,6 +90,33 @@ namespace RTFBLOG.Controllers
         // GET: AdminMakale/Edit/5
         public ActionResult Edit(int id)
         {
+
+        //
+        //
+        //
+        //
+        //
+        //
+        //
+        //
+        //
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
             var makale = db.Makale.Where(x => x.MakaleId == id).SingleOrDefault();
             if (null==makale)

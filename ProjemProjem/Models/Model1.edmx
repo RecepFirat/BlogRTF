@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="yeniBlogDbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="u8417622_dbblgModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Etiket">
           <Key>
             <PropertyRef Name="EtiketId" />
@@ -38,7 +38,7 @@
             <PropertyRef Name="Etiket_EtiketId" />
             <PropertyRef Name="Makale_MakaleId" />
           </Key>
-          <Property Name="Etiket_EtiketId" Type="int" Nullable="false" />
+          <Property Name="Etiket_EtiketId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Makale_MakaleId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="sysdiagrams">
@@ -62,6 +62,7 @@
           <Property Name="AdSoyad" Type="nvarchar" MaxLength="50" />
           <Property Name="Foto" Type="nvarchar" MaxLength="250" />
           <Property Name="YetkiId" Type="int" />
+          <Property Name="Aktif" Type="bit" />
         </EntityType>
         <EntityType Name="Yetki">
           <Key>
@@ -140,7 +141,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Yorum_Makale1">
+        <Association Name="FK_Yorum_Makale">
           <End Role="Makale" Type="Self.Makale" Multiplicity="0..1" />
           <End Role="Yorum" Type="Self.Yorum" Multiplicity="*" />
           <ReferentialConstraint>
@@ -195,7 +196,7 @@
           <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
-        <EntityContainer Name="yeniBlogDbModelStoreContainer">
+        <EntityContainer Name="u8417622_dbblgModelStoreContainer">
           <EntitySet Name="Etiket" EntityType="Self.Etiket" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Kategori" EntityType="Self.Kategori" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Makale" EntityType="Self.Makale" Schema="dbo" store:Type="Tables" />
@@ -224,7 +225,7 @@
             <End Role="Yetki" EntitySet="Yetki" />
             <End Role="Uye" EntitySet="Uye" />
           </AssociationSet>
-          <AssociationSet Name="FK_Yorum_Makale1" Association="Self.FK_Yorum_Makale1">
+          <AssociationSet Name="FK_Yorum_Makale" Association="Self.FK_Yorum_Makale">
             <End Role="Makale" EntitySet="Makale" />
             <End Role="Yorum" EntitySet="Yorum" />
           </AssociationSet>
@@ -233,91 +234,18 @@
             <End Role="Yorum" EntitySet="Yorum" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="yeniBlogDbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityContainer Name="yeniBlogDbEntities" annotation:LazyLoadingEnabled="true">
-          <FunctionImport Name="sp_alterdiagram">
-            <Parameter Name="diagramname" Mode="In" Type="String" />
-            <Parameter Name="owner_id" Mode="In" Type="Int32" />
-            <Parameter Name="version" Mode="In" Type="Int32" />
-            <Parameter Name="definition" Mode="In" Type="Binary" />
-          </FunctionImport>
-          <FunctionImport Name="sp_creatediagram">
-            <Parameter Name="diagramname" Mode="In" Type="String" />
-            <Parameter Name="owner_id" Mode="In" Type="Int32" />
-            <Parameter Name="version" Mode="In" Type="Int32" />
-            <Parameter Name="definition" Mode="In" Type="Binary" />
-          </FunctionImport>
-          <FunctionImport Name="sp_dropdiagram">
-            <Parameter Name="diagramname" Mode="In" Type="String" />
-            <Parameter Name="owner_id" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(yeniBlogDbModel.sp_helpdiagramdefinition_Result)">
-            <Parameter Name="diagramname" Mode="In" Type="String" />
-            <Parameter Name="owner_id" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(yeniBlogDbModel.sp_helpdiagrams_Result)">
-            <Parameter Name="diagramname" Mode="In" Type="String" />
-            <Parameter Name="owner_id" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="sp_renamediagram">
-            <Parameter Name="diagramname" Mode="In" Type="String" />
-            <Parameter Name="owner_id" Mode="In" Type="Int32" />
-            <Parameter Name="new_diagramname" Mode="In" Type="String" />
-          </FunctionImport>
-          <FunctionImport Name="sp_upgraddiagrams" />
-          <EntitySet Name="Etiket" EntityType="yeniBlogDbModel.Etiket" />
-          <EntitySet Name="Kategori" EntityType="yeniBlogDbModel.Kategori" />
-          <EntitySet Name="Makale" EntityType="yeniBlogDbModel.Makale" />
-          <EntitySet Name="sysdiagrams" EntityType="yeniBlogDbModel.sysdiagrams" />
-          <EntitySet Name="Uye" EntityType="yeniBlogDbModel.Uye" />
-          <EntitySet Name="Yetki" EntityType="yeniBlogDbModel.Yetki" />
-          <EntitySet Name="Yorum" EntityType="yeniBlogDbModel.Yorum" />
-          <AssociationSet Name="FK_Makale_Kategori" Association="yeniBlogDbModel.FK_Makale_Kategori">
-            <End Role="Kategori" EntitySet="Kategori" />
-            <End Role="Makale" EntitySet="Makale" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Makale_Uye" Association="yeniBlogDbModel.FK_Makale_Uye">
-            <End Role="Uye" EntitySet="Uye" />
-            <End Role="Makale" EntitySet="Makale" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Yorum_Makale1" Association="yeniBlogDbModel.FK_Yorum_Makale1">
-            <End Role="Makale" EntitySet="Makale" />
-            <End Role="Yorum" EntitySet="Yorum" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Uye_Yetki" Association="yeniBlogDbModel.FK_Uye_Yetki">
-            <End Role="Yetki" EntitySet="Yetki" />
-            <End Role="Uye" EntitySet="Uye" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Yorum_Uye" Association="yeniBlogDbModel.FK_Yorum_Uye">
-            <End Role="Uye" EntitySet="Uye" />
-            <End Role="Yorum" EntitySet="Yorum" />
-          </AssociationSet>
-          <AssociationSet Name="MakaleEtiket" Association="yeniBlogDbModel.MakaleEtiket">
-            <End Role="Etiket" EntitySet="Etiket" />
-            <End Role="Makale" EntitySet="Makale" />
-          </AssociationSet>
-        </EntityContainer>
-        <ComplexType Name="sp_helpdiagramdefinition_Result">
-          <Property Type="Int32" Name="version" Nullable="true" />
-          <Property Type="Binary" Name="definition" Nullable="true" />
-        </ComplexType>
-        <ComplexType Name="sp_helpdiagrams_Result">
-          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
-          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
-          <Property Type="Int32" Name="ID" Nullable="false" />
-          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
-          <Property Type="Int32" Name="OwnerID" Nullable="false" />
-        </ComplexType>
+      <Schema Namespace="u8417622_dbblgModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="Etiket">
           <Key>
             <PropertyRef Name="EtiketId" />
           </Key>
           <Property Name="EtiketId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="EtiketAdi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Makale" Relationship="yeniBlogDbModel.MakaleEtiket" FromRole="Etiket" ToRole="Makale" />
+          <NavigationProperty Name="Makale" Relationship="Self.MakaleEtiket" FromRole="Etiket" ToRole="Makale" />
         </EntityType>
         <EntityType Name="Kategori">
           <Key>
@@ -325,7 +253,7 @@
           </Key>
           <Property Name="KategoriId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="KategoriAdi" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Makale" Relationship="yeniBlogDbModel.FK_Makale_Kategori" FromRole="Kategori" ToRole="Makale" />
+          <NavigationProperty Name="Makale" Relationship="Self.FK_Makale_Kategori" FromRole="Kategori" ToRole="Makale" />
         </EntityType>
         <EntityType Name="Makale">
           <Key>
@@ -340,16 +268,16 @@
           <Property Name="UyeId" Type="Int32" />
           <Property Name="Okunma" Type="Int32" />
           <Property Name="IsActive" Type="Boolean" />
-          <NavigationProperty Name="Kategori" Relationship="yeniBlogDbModel.FK_Makale_Kategori" FromRole="Makale" ToRole="Kategori" />
-          <NavigationProperty Name="Uye" Relationship="yeniBlogDbModel.FK_Makale_Uye" FromRole="Makale" ToRole="Uye" />
-          <NavigationProperty Name="Yorum" Relationship="yeniBlogDbModel.FK_Yorum_Makale1" FromRole="Makale" ToRole="Yorum" />
-          <NavigationProperty Name="Etiket" Relationship="yeniBlogDbModel.MakaleEtiket" FromRole="Makale" ToRole="Etiket" />
+          <NavigationProperty Name="Kategori" Relationship="Self.FK_Makale_Kategori" FromRole="Makale" ToRole="Kategori" />
+          <NavigationProperty Name="Uye" Relationship="Self.FK_Makale_Uye" FromRole="Makale" ToRole="Uye" />
+          <NavigationProperty Name="Yorum" Relationship="Self.FK_Yorum_Makale" FromRole="Makale" ToRole="Yorum" />
+          <NavigationProperty Name="Etiket" Relationship="Self.MakaleEtiket" FromRole="Makale" ToRole="Etiket" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
             <PropertyRef Name="diagram_id" />
           </Key>
-          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="principal_id" Type="Int32" Nullable="false" />
           <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="version" Type="Int32" />
@@ -366,9 +294,10 @@
           <Property Name="AdSoyad" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Foto" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="YetkiId" Type="Int32" />
-          <NavigationProperty Name="Makale" Relationship="yeniBlogDbModel.FK_Makale_Uye" FromRole="Uye" ToRole="Makale" />
-          <NavigationProperty Name="Yetki" Relationship="yeniBlogDbModel.FK_Uye_Yetki" FromRole="Uye" ToRole="Yetki" />
-          <NavigationProperty Name="Yorum" Relationship="yeniBlogDbModel.FK_Yorum_Uye" FromRole="Uye" ToRole="Yorum" />
+          <Property Name="Aktif" Type="Boolean" />
+          <NavigationProperty Name="Makale" Relationship="Self.FK_Makale_Uye" FromRole="Uye" ToRole="Makale" />
+          <NavigationProperty Name="Yetki" Relationship="Self.FK_Uye_Yetki" FromRole="Uye" ToRole="Yetki" />
+          <NavigationProperty Name="Yorum" Relationship="Self.FK_Yorum_Uye" FromRole="Uye" ToRole="Yorum" />
         </EntityType>
         <EntityType Name="Yetki">
           <Key>
@@ -376,7 +305,7 @@
           </Key>
           <Property Name="YetkiId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Yetki1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Uye" Relationship="yeniBlogDbModel.FK_Uye_Yetki" FromRole="Yetki" ToRole="Uye" />
+          <NavigationProperty Name="Uye" Relationship="Self.FK_Uye_Yetki" FromRole="Yetki" ToRole="Uye" />
         </EntityType>
         <EntityType Name="Yorum">
           <Key>
@@ -387,12 +316,12 @@
           <Property Name="UyeId" Type="Int32" />
           <Property Name="MakaleId" Type="Int32" />
           <Property Name="Tarih" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Makale" Relationship="yeniBlogDbModel.FK_Yorum_Makale1" FromRole="Yorum" ToRole="Makale" />
-          <NavigationProperty Name="Uye" Relationship="yeniBlogDbModel.FK_Yorum_Uye" FromRole="Yorum" ToRole="Uye" />
+          <NavigationProperty Name="Makale" Relationship="Self.FK_Yorum_Makale" FromRole="Yorum" ToRole="Makale" />
+          <NavigationProperty Name="Uye" Relationship="Self.FK_Yorum_Uye" FromRole="Yorum" ToRole="Uye" />
         </EntityType>
         <Association Name="FK_Makale_Kategori">
-          <End Type="yeniBlogDbModel.Kategori" Role="Kategori" Multiplicity="0..1" />
-          <End Type="yeniBlogDbModel.Makale" Role="Makale" Multiplicity="*" />
+          <End Role="Kategori" Type="Self.Kategori" Multiplicity="0..1" />
+          <End Role="Makale" Type="Self.Makale" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Kategori">
               <PropertyRef Name="KategoriId" />
@@ -403,8 +332,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Makale_Uye">
-          <End Type="yeniBlogDbModel.Uye" Role="Uye" Multiplicity="0..1" />
-          <End Type="yeniBlogDbModel.Makale" Role="Makale" Multiplicity="*" />
+          <End Role="Uye" Type="Self.Uye" Multiplicity="0..1" />
+          <End Role="Makale" Type="Self.Makale" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Uye">
               <PropertyRef Name="UyeId" />
@@ -414,9 +343,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Yorum_Makale1">
-          <End Type="yeniBlogDbModel.Makale" Role="Makale" Multiplicity="0..1" />
-          <End Type="yeniBlogDbModel.Yorum" Role="Yorum" Multiplicity="*" />
+        <Association Name="FK_Yorum_Makale">
+          <End Role="Makale" Type="Self.Makale" Multiplicity="0..1" />
+          <End Role="Yorum" Type="Self.Yorum" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Makale">
               <PropertyRef Name="MakaleId" />
@@ -427,8 +356,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Uye_Yetki">
-          <End Type="yeniBlogDbModel.Yetki" Role="Yetki" Multiplicity="0..1" />
-          <End Type="yeniBlogDbModel.Uye" Role="Uye" Multiplicity="*" />
+          <End Role="Yetki" Type="Self.Yetki" Multiplicity="0..1" />
+          <End Role="Uye" Type="Self.Uye" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Yetki">
               <PropertyRef Name="YetkiId" />
@@ -439,8 +368,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Yorum_Uye">
-          <End Type="yeniBlogDbModel.Uye" Role="Uye" Multiplicity="0..1" />
-          <End Type="yeniBlogDbModel.Yorum" Role="Yorum" Multiplicity="*" />
+          <End Role="Uye" Type="Self.Uye" Multiplicity="0..1" />
+          <End Role="Yorum" Type="Self.Yorum" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Uye">
               <PropertyRef Name="UyeId" />
@@ -451,29 +380,186 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="MakaleEtiket">
-          <End Type="yeniBlogDbModel.Etiket" Role="Etiket" Multiplicity="*" />
-          <End Type="yeniBlogDbModel.Makale" Role="Makale" Multiplicity="*" />
+          <End Role="Etiket" Type="Self.Etiket" Multiplicity="*" />
+          <End Role="Makale" Type="Self.Makale" Multiplicity="*" />
         </Association>
+        <EntityContainer Name="u8417622_dbblgEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Etiket" EntityType="Self.Etiket" />
+          <EntitySet Name="Kategori" EntityType="Self.Kategori" />
+          <EntitySet Name="Makale" EntityType="Self.Makale" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="Uye" EntityType="Self.Uye" />
+          <EntitySet Name="Yetki" EntityType="Self.Yetki" />
+          <EntitySet Name="Yorum" EntityType="Self.Yorum" />
+          <AssociationSet Name="FK_Makale_Kategori" Association="Self.FK_Makale_Kategori">
+            <End Role="Kategori" EntitySet="Kategori" />
+            <End Role="Makale" EntitySet="Makale" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Makale_Uye" Association="Self.FK_Makale_Uye">
+            <End Role="Uye" EntitySet="Uye" />
+            <End Role="Makale" EntitySet="Makale" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Yorum_Makale" Association="Self.FK_Yorum_Makale">
+            <End Role="Makale" EntitySet="Makale" />
+            <End Role="Yorum" EntitySet="Yorum" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Uye_Yetki" Association="Self.FK_Uye_Yetki">
+            <End Role="Yetki" EntitySet="Yetki" />
+            <End Role="Uye" EntitySet="Uye" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Yorum_Uye" Association="Self.FK_Yorum_Uye">
+            <End Role="Uye" EntitySet="Uye" />
+            <End Role="Yorum" EntitySet="Yorum" />
+          </AssociationSet>
+          <AssociationSet Name="MakaleEtiket" Association="Self.MakaleEtiket">
+            <End Role="Etiket" EntitySet="Etiket" />
+            <End Role="Makale" EntitySet="Makale" />
+          </AssociationSet>
+          <FunctionImport Name="sp_alterdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_creatediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_dropdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(u8417622_dbblgModel.sp_helpdiagramdefinition_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(u8417622_dbblgModel.sp_helpdiagrams_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_renamediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="new_diagramname" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_upgraddiagrams" />
+        </EntityContainer>
+        <ComplexType Name="sp_helpdiagramdefinition_Result">
+          <Property Type="Int32" Name="version" Nullable="true" />
+          <Property Type="Binary" Name="definition" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagrams_Result">
+          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="OwnerID" Nullable="false" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="yeniBlogDbModelStoreContainer" CdmEntityContainer="yeniBlogDbEntities">
-          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="yeniBlogDbModel.Store.sp_alterdiagram" />
-          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="yeniBlogDbModel.Store.sp_creatediagram" />
-          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="yeniBlogDbModel.Store.sp_dropdiagram" />
-          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="yeniBlogDbModel.Store.sp_helpdiagramdefinition">
+        <EntityContainerMapping StorageEntityContainer="u8417622_dbblgModelStoreContainer" CdmEntityContainer="u8417622_dbblgEntities">
+          <EntitySetMapping Name="Etiket">
+            <EntityTypeMapping TypeName="u8417622_dbblgModel.Etiket">
+              <MappingFragment StoreEntitySet="Etiket">
+                <ScalarProperty Name="EtiketId" ColumnName="EtiketId" />
+                <ScalarProperty Name="EtiketAdi" ColumnName="EtiketAdi" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Kategori">
+            <EntityTypeMapping TypeName="u8417622_dbblgModel.Kategori">
+              <MappingFragment StoreEntitySet="Kategori">
+                <ScalarProperty Name="KategoriId" ColumnName="KategoriId" />
+                <ScalarProperty Name="KategoriAdi" ColumnName="KategoriAdi" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Makale">
+            <EntityTypeMapping TypeName="u8417622_dbblgModel.Makale">
+              <MappingFragment StoreEntitySet="Makale">
+                <ScalarProperty Name="MakaleId" ColumnName="MakaleId" />
+                <ScalarProperty Name="Baslik" ColumnName="Baslik" />
+                <ScalarProperty Name="Icerik" ColumnName="Icerik" />
+                <ScalarProperty Name="Foto" ColumnName="Foto" />
+                <ScalarProperty Name="Tarih" ColumnName="Tarih" />
+                <ScalarProperty Name="KategoriId" ColumnName="KategoriId" />
+                <ScalarProperty Name="UyeId" ColumnName="UyeId" />
+                <ScalarProperty Name="Okunma" ColumnName="Okunma" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="u8417622_dbblgModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Uye">
+            <EntityTypeMapping TypeName="u8417622_dbblgModel.Uye">
+              <MappingFragment StoreEntitySet="Uye">
+                <ScalarProperty Name="UyeId" ColumnName="UyeId" />
+                <ScalarProperty Name="KullaniciAdi" ColumnName="KullaniciAdi" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Sifre" ColumnName="Sifre" />
+                <ScalarProperty Name="AdSoyad" ColumnName="AdSoyad" />
+                <ScalarProperty Name="Foto" ColumnName="Foto" />
+                <ScalarProperty Name="YetkiId" ColumnName="YetkiId" />
+                <ScalarProperty Name="Aktif" ColumnName="Aktif" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Yetki">
+            <EntityTypeMapping TypeName="u8417622_dbblgModel.Yetki">
+              <MappingFragment StoreEntitySet="Yetki">
+                <ScalarProperty Name="YetkiId" ColumnName="YetkiId" />
+                <ScalarProperty Name="Yetki1" ColumnName="Yetki" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Yorum">
+            <EntityTypeMapping TypeName="u8417622_dbblgModel.Yorum">
+              <MappingFragment StoreEntitySet="Yorum">
+                <ScalarProperty Name="YorumId" ColumnName="YorumId" />
+                <ScalarProperty Name="Icerik" ColumnName="Icerik" />
+                <ScalarProperty Name="UyeId" ColumnName="UyeId" />
+                <ScalarProperty Name="MakaleId" ColumnName="MakaleId" />
+                <ScalarProperty Name="Tarih" ColumnName="Tarih" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="MakaleEtiket" TypeName="u8417622_dbblgModel.MakaleEtiket" StoreEntitySet="MakaleEtiket">
+            <EndProperty Name="Etiket">
+              <ScalarProperty Name="EtiketId" ColumnName="Etiket_EtiketId" />
+            </EndProperty>
+            <EndProperty Name="Makale">
+              <ScalarProperty Name="MakaleId" ColumnName="Makale_MakaleId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="u8417622_dbblgModel.Store.sp_alterdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="u8417622_dbblgModel.Store.sp_creatediagram" />
+          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="u8417622_dbblgModel.Store.sp_dropdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="u8417622_dbblgModel.Store.sp_helpdiagramdefinition">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="yeniBlogDbModel.sp_helpdiagramdefinition_Result">
+              <ComplexTypeMapping TypeName="u8417622_dbblgModel.sp_helpdiagramdefinition_Result">
                 <ScalarProperty Name="version" ColumnName="version" />
                 <ScalarProperty Name="definition" ColumnName="definition" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="yeniBlogDbModel.Store.sp_helpdiagrams">
+          <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="u8417622_dbblgModel.Store.sp_helpdiagrams">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="yeniBlogDbModel.sp_helpdiagrams_Result">
+              <ComplexTypeMapping TypeName="u8417622_dbblgModel.sp_helpdiagrams_Result">
                 <ScalarProperty Name="Database" ColumnName="Database" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
@@ -482,91 +568,9 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="yeniBlogDbModel.Store.sp_renamediagram" />
-          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="yeniBlogDbModel.Store.sp_upgraddiagrams" />
-          <EntitySetMapping Name="Etiket">
-            <EntityTypeMapping TypeName="yeniBlogDbModel.Etiket">
-              <MappingFragment StoreEntitySet="Etiket">
-                <ScalarProperty Name="EtiketAdi" ColumnName="EtiketAdi" />
-                <ScalarProperty Name="EtiketId" ColumnName="EtiketId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Kategori">
-            <EntityTypeMapping TypeName="yeniBlogDbModel.Kategori">
-              <MappingFragment StoreEntitySet="Kategori">
-                <ScalarProperty Name="KategoriAdi" ColumnName="KategoriAdi" />
-                <ScalarProperty Name="KategoriId" ColumnName="KategoriId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Makale">
-            <EntityTypeMapping TypeName="yeniBlogDbModel.Makale">
-              <MappingFragment StoreEntitySet="Makale">
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="Okunma" ColumnName="Okunma" />
-                <ScalarProperty Name="UyeId" ColumnName="UyeId" />
-                <ScalarProperty Name="KategoriId" ColumnName="KategoriId" />
-                <ScalarProperty Name="Tarih" ColumnName="Tarih" />
-                <ScalarProperty Name="Foto" ColumnName="Foto" />
-                <ScalarProperty Name="Icerik" ColumnName="Icerik" />
-                <ScalarProperty Name="Baslik" ColumnName="Baslik" />
-                <ScalarProperty Name="MakaleId" ColumnName="MakaleId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="yeniBlogDbModel.sysdiagrams">
-              <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="definition" ColumnName="definition" />
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="name" ColumnName="name" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Uye">
-            <EntityTypeMapping TypeName="yeniBlogDbModel.Uye">
-              <MappingFragment StoreEntitySet="Uye">
-                <ScalarProperty Name="YetkiId" ColumnName="YetkiId" />
-                <ScalarProperty Name="Foto" ColumnName="Foto" />
-                <ScalarProperty Name="AdSoyad" ColumnName="AdSoyad" />
-                <ScalarProperty Name="Sifre" ColumnName="Sifre" />
-                <ScalarProperty Name="Email" ColumnName="Email" />
-                <ScalarProperty Name="KullaniciAdi" ColumnName="KullaniciAdi" />
-                <ScalarProperty Name="UyeId" ColumnName="UyeId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Yetki">
-            <EntityTypeMapping TypeName="yeniBlogDbModel.Yetki">
-              <MappingFragment StoreEntitySet="Yetki">
-                <ScalarProperty Name="Yetki1" ColumnName="Yetki" />
-                <ScalarProperty Name="YetkiId" ColumnName="YetkiId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Yorum">
-            <EntityTypeMapping TypeName="yeniBlogDbModel.Yorum">
-              <MappingFragment StoreEntitySet="Yorum">
-                <ScalarProperty Name="Tarih" ColumnName="Tarih" />
-                <ScalarProperty Name="MakaleId" ColumnName="MakaleId" />
-                <ScalarProperty Name="UyeId" ColumnName="UyeId" />
-                <ScalarProperty Name="Icerik" ColumnName="Icerik" />
-                <ScalarProperty Name="YorumId" ColumnName="YorumId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <AssociationSetMapping Name="MakaleEtiket" TypeName="yeniBlogDbModel.MakaleEtiket" StoreEntitySet="MakaleEtiket">
-            <EndProperty Name="Makale">
-              <ScalarProperty Name="MakaleId" ColumnName="Makale_MakaleId" />
-            </EndProperty>
-            <EndProperty Name="Etiket">
-              <ScalarProperty Name="EtiketId" ColumnName="Etiket_EtiketId" />
-            </EndProperty>
-          </AssociationSetMapping>
-          </EntityContainerMapping>
+          <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="u8417622_dbblgModel.Store.sp_renamediagram" />
+          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="u8417622_dbblgModel.Store.sp_upgraddiagrams" />
+        </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>
@@ -582,7 +586,7 @@
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
         <DesignerProperty Name="EnablePluralization" Value="false" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
-        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
       </DesignerInfoPropertySet>
     </Options>

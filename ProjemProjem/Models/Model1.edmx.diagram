@@ -4,20 +4,20 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="42e54a57d18845c49c1ae011530ac17e" Name="Diagram1">
-        <EntityTypeShape EntityType="yeniBlogDbModel.Etiket" Width="1.5" PointX="2.875" PointY="6" />
-        <EntityTypeShape EntityType="yeniBlogDbModel.Kategori" Width="1.5" PointX="2.875" PointY="8.375" />
-        <EntityTypeShape EntityType="yeniBlogDbModel.Makale" Width="1.5" PointX="11" PointY="1.25" />
-        <EntityTypeShape EntityType="yeniBlogDbModel.sysdiagrams" Width="1.5" PointX="5.625" PointY="6" />
-        <EntityTypeShape EntityType="yeniBlogDbModel.Uye" Width="1.5" PointX="2.875" PointY="1.5" />
-        <EntityTypeShape EntityType="yeniBlogDbModel.Yetki" Width="1.5" PointX="0.625" PointY="2.25" />
-        <EntityTypeShape EntityType="yeniBlogDbModel.Yorum" Width="1.5" PointX="7.375" PointY="1.875" />
-        <AssociationConnector Association="yeniBlogDbModel.FK_Makale_Kategori" />
-        <AssociationConnector Association="yeniBlogDbModel.FK_Makale_Uye" />
-        <AssociationConnector Association="yeniBlogDbModel.FK_Yorum_Makale1" />
-        <AssociationConnector Association="yeniBlogDbModel.FK_Uye_Yetki" />
-        <AssociationConnector Association="yeniBlogDbModel.FK_Yorum_Uye" />
-        <AssociationConnector Association="yeniBlogDbModel.MakaleEtiket" />
+      <Diagram DiagramId="648684ed9b8a4ba08392af6bcd058753" Name="Diagram1">
+        <EntityTypeShape EntityType="u8417622_dbblgModel.Etiket" Width="1.5" PointX="3" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="u8417622_dbblgModel.Kategori" Width="1.5" PointX="3" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="u8417622_dbblgModel.Makale" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="u8417622_dbblgModel.sysdiagrams" Width="1.5" PointX="5.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="u8417622_dbblgModel.Uye" Width="1.5" PointX="3" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="u8417622_dbblgModel.Yetki" Width="1.5" PointX="0.75" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="u8417622_dbblgModel.Yorum" Width="1.5" PointX="7.5" PointY="1.625" IsExpanded="true" />
+        <AssociationConnector Association="u8417622_dbblgModel.FK_Makale_Kategori" ManuallyRouted="false" />
+        <AssociationConnector Association="u8417622_dbblgModel.FK_Makale_Uye" ManuallyRouted="false" />
+        <AssociationConnector Association="u8417622_dbblgModel.FK_Yorum_Makale" ManuallyRouted="false" />
+        <AssociationConnector Association="u8417622_dbblgModel.FK_Uye_Yetki" ManuallyRouted="false" />
+        <AssociationConnector Association="u8417622_dbblgModel.FK_Yorum_Uye" ManuallyRouted="false" />
+        <AssociationConnector Association="u8417622_dbblgModel.MakaleEtiket" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

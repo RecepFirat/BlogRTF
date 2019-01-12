@@ -12,7 +12,7 @@ namespace RTFBLOG.Controllers
 {
     public class AdminUyeController : Controller
     {
-        private yeniBlogDbEntities db = new yeniBlogDbEntities();
+        private u8417622_dbblgEntities db = new u8417622_dbblgEntities();
 
         // GET: AdminUye
         public ActionResult Index()

@@ -13,7 +13,7 @@ namespace RTFBLOG.Controllers
 {
     public class AdminYorumController : Controller
     {
-        private yeniBlogDbEntities db = new yeniBlogDbEntities();
+        private u8417622_dbblgEntities db = new u8417622_dbblgEntities();
 
         // GET: AdminYorum
         public ActionResult Index()

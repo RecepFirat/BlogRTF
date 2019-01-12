@@ -13,7 +13,7 @@ namespace RTFBLOG.Controllers
     public class UyeMakaleYonetimController : Controller
     {
         // GET: UyeMakaleYonetim
-        yeniBlogDbEntities db = new yeniBlogDbEntities();
+        u8417622_dbblgEntities db = new u8417622_dbblgEntities();
         // GET: AdminMakale
         public ActionResult Index(int Page = 1)
         {
@@ -71,10 +71,11 @@ namespace RTFBLOG.Controllers
                     }
                     makale.UyeId = Convert.ToInt32(Session["uyeid"].ToString());
                     makale.Okunma = 0;
+                    makale.IsActive = false;
                     db.Makale.Add(makale);
                     db.SaveChanges();
 
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Index",ViewBag.alert="Yönetici Tarafından okunduktan sonra yayina Gececektir");
                 }
                 else
                 {
@@ -126,11 +127,12 @@ namespace RTFBLOG.Controllers
                     Guncellenecekmakale.Baslik = makale.Baslik;
                     Guncellenecekmakale.Icerik = makale.Icerik;
                     Guncellenecekmakale.KategoriId = makale.KategoriId;
+                    Guncellenecekmakale.IsActive = false;
                     db.SaveChanges();
 
 
                 }
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", ViewBag.alert = "Yönetici Tarafından okunduktan sonra yayina Gececektir");
             }
             catch
             {
