@@ -9,7 +9,7 @@ namespace RTFBLOG.Controllers
 {
     public class HomeController : Controller
     {
-        u8417622_dbblgEntities db = new u8417622_dbblgEntities();
+        yeniBlogDbEntities db = new yeniBlogDbEntities();
         // GET: Home
         public ActionResult Index(int Page=1)
         {

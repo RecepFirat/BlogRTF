@@ -12,7 +12,14 @@ namespace RTFBLOG.Controllers
 {
     public class AdminKategoriController : Controller
     {
-        private u8417622_dbblgEntities db = new u8417622_dbblgEntities();
+
+        //public string Baslik { get; set; }
+        //[UIHint("tinymce_full_compressed"), AllowHtml]
+        //public string Icerik { get; set; }
+        //Buraya onlar gelecek
+
+
+        private yeniBlogDbEntities db = new yeniBlogDbEntities();
 
         // GET: AdminKategori
         public ActionResult Index()

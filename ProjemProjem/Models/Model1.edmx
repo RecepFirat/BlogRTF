@@ -383,7 +383,7 @@
           <End Role="Etiket" Type="Self.Etiket" Multiplicity="*" />
           <End Role="Makale" Type="Self.Makale" Multiplicity="*" />
         </Association>
-        <EntityContainer Name="u8417622_dbblgEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="yeniBlogDbEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Etiket" EntityType="Self.Etiket" />
           <EntitySet Name="Kategori" EntityType="Self.Kategori" />
           <EntitySet Name="Makale" EntityType="Self.Makale" />
@@ -462,7 +462,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="u8417622_dbblgModelStoreContainer" CdmEntityContainer="u8417622_dbblgEntities">
+        <EntityContainerMapping StorageEntityContainer="u8417622_dbblgModelStoreContainer" CdmEntityContainer="yeniBlogDbEntities">
           <EntitySetMapping Name="Etiket">
             <EntityTypeMapping TypeName="u8417622_dbblgModel.Etiket">
               <MappingFragment StoreEntitySet="Etiket">

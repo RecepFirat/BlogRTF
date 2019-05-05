@@ -15,10 +15,10 @@ namespace RTFBLOG.Models
     using System.Data.Entity.Core.Objects;
     using System.Linq;
     
-    public partial class u8417622_dbblgEntities : DbContext
+    public partial class yeniBlogDbEntities : DbContext
     {
-        public u8417622_dbblgEntities()
-            : base("name=u8417622_dbblgEntities")
+        public yeniBlogDbEntities()
+            : base("name=yeniBlogDbEntities")
         {
         }
     

@@ -13,7 +13,7 @@ namespace RTFBLOG.Controllers
     public class UyeMakaleYonetimController : Controller
     {
         // GET: UyeMakaleYonetim
-        u8417622_dbblgEntities db = new u8417622_dbblgEntities();
+        yeniBlogDbEntities db = new yeniBlogDbEntities();
         // GET: AdminMakale
         public ActionResult Index(int Page = 1)
         {

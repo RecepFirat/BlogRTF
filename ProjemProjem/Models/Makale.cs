@@ -11,7 +11,9 @@ namespace RTFBLOG.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+    using System.Web.Mvc;
+
     public partial class Makale
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -23,7 +25,10 @@ namespace RTFBLOG.Models
     
         public int MakaleId { get; set; }
         public string Baslik { get; set; }
-        public string Icerik { get; set; }
+        //public string Baslik { get; set; }
+        [UIHint("tinymce_full_compressed"), AllowHtml]
+       public string Icerik { get; set; }
+        //Buraya onlar gelecek
         public string Foto { get; set; }
         public Nullable<System.DateTime> Tarih { get; set; }
         public Nullable<int> KategoriId { get; set; }
