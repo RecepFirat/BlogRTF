@@ -41,21 +41,14 @@ namespace RTFBLOG.Controllers
             {
                 if (ModelState.IsValid)
                 {
-
-
                     if (null != Foto)
                     {
                         WebImage img = new WebImage(Foto.InputStream);
                         FileInfo fotoInfo = new FileInfo(Foto.FileName);
-
                         string newfoto = Guid.NewGuid().ToString() + fotoInfo.Extension;
-
                         img.Resize(750, 300);
                         img.Save("~/Uploads/MakaleFoto/" + newfoto);
                         makale.Foto = "/Uploads/MakaleFoto/" + newfoto.ToString();
-
-
-
                     }
                     if (null != Etiketler)
                     {

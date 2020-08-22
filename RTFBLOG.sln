@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28010.2036
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30413.136
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RTFBLOG", "ProjemProjem\RTFBLOG.csproj", "{84B49F13-6FF7-40D1-BF82-AFF67AD1FC77}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RTFBLOG", "RTFBlog\RTFBLOG.csproj", "{84B49F13-6FF7-40D1-BF82-AFF67AD1FC77}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
