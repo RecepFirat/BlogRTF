@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
+using System.Web.Helpers;
 using System.Web.Mvc;
 using RTFBLOG.Models;
 
@@ -48,11 +50,22 @@ namespace RTFBLOG.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "UyeId,KullaniciAdi,Email,Sifre,AdSoyad,YetkiId")] Uye uye)
+        public ActionResult Create( Uye uye, HttpPostedFileBase foto)
         {
             if (ModelState.IsValid)
             {
+                WebImage img = new WebImage(foto.InputStream);
+                FileInfo fotoInfo = new FileInfo(foto.FileName);
+                string newfoto = Guid.NewGuid().ToString() + fotoInfo.Extension;
+                
                
+
+                img.Resize(150, 150);
+                img.Save("~/Uploads/UyeFoto/" + newfoto);
+                uye.Foto = "/Uploads/UyeFoto/" + newfoto.ToString();
+        
+              
+
                 db.Uye.Add(uye);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -83,10 +96,29 @@ namespace RTFBLOG.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "UyeId,KullaniciAdi,Email,Sifre,AdSoyad,YetkiId")] Uye uye)
+        public ActionResult Edit([Bind(Include = "UyeId,KullaniciAdi,Email,Sifre,AdSoyad,YetkiId")] Uye uye, HttpPostedFileBase foto)
         {
             if (ModelState.IsValid)
             {
+                if (null!=foto)
+                {
+                    if (System.IO.File.Exists(Server.MapPath(uye.Foto)))
+                    {
+
+                        System.IO.File.Delete(Server.MapPath(uye.Foto));
+                    }
+                    WebImage img = new WebImage(foto.InputStream);
+                    FileInfo fotoInfo = new FileInfo(foto.FileName);
+                    string newfoto = Guid.NewGuid().ToString() + fotoInfo.Extension;
+
+
+
+                    img.Resize(150, 150);
+                    img.Save("~/Uploads/UyeFoto/" + newfoto);
+                    uye.Foto = "/Uploads/UyeFoto/" + newfoto.ToString();
+                   
+                }
+
                 db.Entry(uye).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

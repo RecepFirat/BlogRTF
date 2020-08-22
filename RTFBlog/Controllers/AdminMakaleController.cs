@@ -12,6 +12,35 @@ namespace RTFBLOG.Controllers
 {
     public class AdminMakaleController : Controller
     {
+        public ActionResult Upload()
+        {
+            HttpPostedFileBase file = Request.Files["file"];
+            string extension = Path.GetExtension(file.FileName);
+            string fileid = Guid.NewGuid().ToString();
+            fileid = Path.ChangeExtension(fileid, extension);
+            var draft = new { location = "" };
+            if (file != null && file.ContentLength > 0)
+            {
+                const int megabyte = 1024 * 1024;
+                if (!file.ContentType.StartsWith("image/"))
+                {
+                    throw new InvalidOperationException("Invalid MIME content type.");
+                }
+                string[] extensions = { ".gif", ".jpg", ".png" };
+                if (!extensions.Contains(extension))
+                {
+                    throw new InvalidOperationException("Invalid file extension.");
+                }
+                if (file.ContentLength > (8 * megabyte))
+                {
+                    throw new InvalidOperationException("File size limit exceeded.");
+                }
+                string savePath = Server.MapPath(@"~/Uploads/" + fileid);
+                file.SaveAs(savePath);
+                draft = new { location = Path.Combine("/Uploads", fileid).Replace('\\', '/') };
+            }
+            return Json(draft, JsonRequestBehavior.AllowGet);
+        }
         yeniBlogDbEntities db = new yeniBlogDbEntities();
         // GET: AdminMakale
         public ActionResult Index(int Page=1)
@@ -123,6 +152,15 @@ namespace RTFBLOG.Controllers
                     Guncellenecekmakale.KategoriId = makale.KategoriId;
                     db.SaveChanges();
 
+
+                }
+                else
+                {
+                    Guncellenecekmakale.Baslik = makale.Baslik;
+                    Guncellenecekmakale.Icerik = makale.Icerik;
+                    Guncellenecekmakale.IsActive = true;
+                    Guncellenecekmakale.KategoriId = makale.KategoriId;
+                    db.SaveChanges();
 
                 }
                 return RedirectToAction("Index");

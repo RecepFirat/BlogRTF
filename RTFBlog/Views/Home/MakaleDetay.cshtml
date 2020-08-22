@@ -44,7 +44,7 @@
 <hr>
 <!-- Post Content -->
 <p class="lead Yazi">
-    @Model.Icerik
+  @Html.Raw(Model.Icerik)
 </p>
 <hr />
 @*<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut, tenetur natus doloremque laborum quos iste ipsum rerum obcaecati impedit odit illo dolorum ab tempora nihil dicta earum fugiat. Temporibus, voluptatibus.</p>
@@ -52,9 +52,9 @@
 <blockquote class="blockquote">
     <p class="mb-0"></p>
     <footer class="blockquote-footer">
-        Someone famous in
+      Etiketler
         <cite title="Source Title">
-            naber
+            
             @foreach (var item in Model.Etiket)
             {
                 <span class="tag">@item.EtiketAdi </span>

@@ -25,8 +25,8 @@ namespace RTFBLOG.Models
     
         public int MakaleId { get; set; }
         public string Baslik { get; set; }
-        [UIHint("tinymce_full_compressed"), AllowHtml]
-
+        [AllowHtml]
+        [UIHint("tinymce_full_compressed")]
         public string Icerik { get; set; }
         public string Foto { get; set; }
         public Nullable<System.DateTime> Tarih { get; set; }
